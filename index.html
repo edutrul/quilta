@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IESTP Gilda Ballivián</title>
+<meta name="description" content="Propuesta de rediseño de landing page para el IESTP Gilda Ballivián.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f3f4f8;
+    --paper-raised:#ffffff;
+    --ink:#12162a;
+    --ink-soft:#4d5470;
+    --navy:#0c1a4a;
+    --navy-deep:#081130;
+    --navy-soft:#1c2c66;
+    --coral:#ff6b45;
+    --coral-dark:#e2542f;
+    --teal:#0f6b63;
+    --line:#dfe2ec;
+    --shadow: 0 20px 40px -24px rgba(8,17,48,.35);
+    --display: "Big Shoulders Display", "Arial Narrow", sans-serif;
+    --body: "Work Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#0a0e1f;
+      --paper-raised:#121732;
+      --ink:#eef0fa;
+      --ink-soft:#a9afd0;
+      --navy:#16234f;
+      --navy-deep:#060a1a;
+      --navy-soft:#22306e;
+      --line:#242c52;
+      --shadow: 0 20px 40px -20px rgba(0,0,0,.55);
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#0a0e1f;
+    --paper-raised:#121732;
+    --ink:#eef0fa;
+    --ink-soft:#a9afd0;
+    --navy:#16234f;
+    --navy-deep:#060a1a;
+    --navy-soft:#22306e;
+    --line:#242c52;
+    --shadow: 0 20px 40px -20px rgba(0,0,0,.55);
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--body);
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  img,svg{max-width:100%;}
+  a{color:inherit;}
+  h1,h2,h3{font-family:var(--display);font-weight:700;text-wrap:balance;margin:0;letter-spacing:.01em;}
+  p{line-height:1.6;color:var(--ink-soft);margin:0;}
+  .wrap{max-width:1180px;margin:0 auto;padding-inline:24px;}
+  .eyebrow{
+    font:700 12px/1 var(--body);
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--coral-dark);
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+  }
+  .eyebrow::before{content:"";width:22px;height:2px;background:var(--coral);display:inline-block;}
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    font:600 15px/1 var(--body);
+    padding:14px 26px;border-radius:999px;border:2px solid transparent;
+    cursor:pointer;text-decoration:none;transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
+  }
+  .btn-primary{background:var(--coral);color:#fff;box-shadow:0 12px 24px -10px rgba(255,107,69,.6);}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 28px -10px rgba(255,107,69,.7);}
+  .btn-ghost{border-color:rgba(255,255,255,.35);color:#fff;}
+  .btn-ghost:hover{background:rgba(255,255,255,.12);}
+  .btn-outline{border-color:var(--navy);color:var(--navy);}
+  :root[data-theme="dark"] .btn-outline, @media (prefers-color-scheme:dark){ .btn-outline{border-color:var(--ink);color:var(--ink);} }
+  .btn-outline:hover{background:var(--navy);color:#fff;}
+  section{padding-block:clamp(56px,8vw,96px);}
+
+  .topbar{background:var(--navy-deep);color:#c9cff0;font-size:12.5px;}
+  .topbar .wrap{display:flex;gap:22px;height:38px;align-items:center;overflow-x:auto;scrollbar-width:none;}
+  .topbar .wrap::-webkit-scrollbar{display:none;}
+  .topbar a{display:flex;gap:6px;align-items:center;white-space:nowrap;text-decoration:none;opacity:.9;}
+  .topbar a:hover{opacity:1;color:#fff;}
+
+  header.site{
+    position:sticky;top:0;z-index:40;
+    background:var(--paper-raised);border-bottom:1px solid var(--line);
+    transition:box-shadow .2s ease;
+  }
+  header.site.scrolled{box-shadow:var(--shadow);}
+  header.site .wrap{display:flex;align-items:center;justify-content:space-between;height:76px;gap:16px;}
+  .brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink);}
+  .brand-mark{width:44px;height:44px;flex:none;}
+  .brand-name{font-family:var(--display);font-weight:700;font-size:19px;line-height:1.05;letter-spacing:.01em;}
+  .brand-name small{display:block;font-family:var(--body);font-weight:600;font-size:10.5px;letter-spacing:.12em;color:var(--ink-soft);text-transform:uppercase;}
+  nav.primary{display:flex;align-items:center;gap:30px;}
+  nav.primary a{font:600 14.5px/1 var(--body);text-decoration:none;color:var(--ink-soft);position:relative;padding-block:6px;}
+  nav.primary a:hover, nav.primary a.active{color:var(--ink);}
+  nav.primary a.active::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:2px;background:var(--coral);border-radius:2px;}
+  .header-actions{display:flex;align-items:center;gap:14px;}
+  .menu-toggle{display:none;width:44px;height:44px;border-radius:10px;border:1px solid var(--line);background:var(--paper-raised);align-items:center;justify-content:center;cursor:pointer;}
+  .menu-toggle span,.menu-toggle span::before,.menu-toggle span::after{content:"";display:block;width:20px;height:2px;background:var(--ink);position:relative;transition:.2s;}
+  .menu-toggle span::before{position:absolute;top:-6px;}
+  .menu-toggle span::after{position:absolute;top:6px;}
+
+  @media (max-width:880px){
+    nav.primary{
+      position:fixed;inset:76px 0 0 0;background:var(--paper-raised);
+      flex-direction:column;align-items:stretch;padding:20px 24px;gap:4px;
+      transform:translateY(-12px);opacity:0;pointer-events:none;transition:.2s ease;
+      border-top:1px solid var(--line);
+    }
+    nav.primary.open{transform:translateY(0);opacity:1;pointer-events:auto;}
+    nav.primary a{padding:14px 4px;border-bottom:1px solid var(--line);}
+    nav.primary a.active::after{display:none;}
+    .header-actions .btn-outline{display:none;}
+    .menu-toggle{display:flex;}
+  }
+
+  .hero{
+    position:relative;overflow:hidden;
+    background:radial-gradient(1100px 500px at 85% -10%, var(--navy-soft), transparent 60%), var(--navy-deep);
+    color:#fff;padding-block:clamp(64px,10vw,108px);
+  }
+  .hero::after{
+    content:"";position:absolute;right:-6%;top:-18%;width:56%;aspect-ratio:1;
+    background:conic-gradient(from 210deg, var(--coral), transparent 32%);
+    opacity:.18;filter:blur(2px);pointer-events:none;
+  }
+  .hero .wrap{position:relative;display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center;}
+  @media (max-width:920px){.hero .wrap{grid-template-columns:1fr;}}
+  .hero h1{font-size:clamp(40px,6vw,68px);line-height:.98;color:#fff;margin-block:18px 20px;}
+  .hero h1 em{font-style:normal;color:var(--coral);}
+  .hero p.lede{color:#c9cff0;font-size:17.5px;max-width:46ch;}
+  .hero .cta-row{display:flex;flex-wrap:wrap;gap:14px;margin-top:32px;}
+  .hero .eyebrow{color:#ffb59e;}
+  .hero .eyebrow::before{background:#ffb59e;}
+  .hero-badge-row{display:flex;gap:28px;margin-top:44px;flex-wrap:wrap;}
+  .hero-badge{display:flex;flex-direction:column;gap:2px;}
+  .hero-badge b{font-family:var(--display);font-size:26px;color:#fff;font-variant-numeric:tabular-nums;}
+  .hero-badge span{font-size:11.5px;color:#9aa3d1;text-transform:uppercase;letter-spacing:.1em;}
+
+  .hero-panel{
+    position:relative;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.16);
+    border-radius:20px;padding:28px;backdrop-filter:blur(6px);
+  }
+  .hero-panel .tag{position:absolute;top:-14px;left:24px;background:var(--coral);color:#fff;font:700 12px/1 var(--body);padding:8px 14px;border-radius:999px;letter-spacing:.04em;box-shadow:0 10px 18px -8px rgba(255,107,69,.7);}
+  .hero-panel h3{color:#fff;font-size:22px;margin-top:10px;}
+  .hero-panel p{color:#c9cff0;margin-top:10px;font-size:14.5px;}
+  .hero-panel .quote-name{margin-top:18px;display:flex;gap:12px;align-items:center;}
+  .avatar-ring{width:46px;height:46px;border-radius:50%;background:linear-gradient(140deg,var(--coral),#ffb59e);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:700;color:#fff;font-size:16px;flex:none;}
+  .quote-name b{display:block;color:#fff;font-size:14px;}
+  .quote-name span{color:#9aa3d1;font-size:12px;}
+
+  .stats{background:var(--navy);color:#fff;padding-block:0;}
+  .stats .wrap{display:grid;grid-template-columns:repeat(5,1fr);}
+  @media (max-width:920px){.stats .wrap{grid-template-columns:repeat(2,1fr);}}
+  @media (max-width:520px){.stats .wrap{grid-template-columns:1fr 1fr;}}
+  .stat{padding:34px 18px;text-align:center;border-left:1px solid rgba(255,255,255,.1);}
+  .stat:first-child{border-left:none;}
+  @media (max-width:920px){.stat:nth-child(2n+1){border-left:none;}}
+  .stat b{display:block;font-family:var(--display);font-size:clamp(30px,4vw,42px);color:#fff;font-variant-numeric:tabular-nums;}
+  .stat b .plus{color:var(--coral);}
+  .stat span{font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:#9aa3d1;}
+
+  .sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:40px;flex-wrap:wrap;}
+  .sec-head h2{font-size:clamp(30px,4vw,42px);margin-top:12px;max-width:20ch;}
+  .sec-head p{max-width:42ch;}
+
+  .programs{background:var(--paper);}
+  .prog-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+  @media (max-width:1020px){.prog-grid{grid-template-columns:repeat(2,1fr);}}
+  @media (max-width:560px){.prog-grid{grid-template-columns:1fr;}}
+  .prog-card{
+    background:var(--paper-raised);border:1px solid var(--line);border-radius:16px;padding:26px 22px;
+    display:flex;flex-direction:column;gap:14px;cursor:pointer;transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    text-align:left;font:inherit;color:inherit;
+  }
+  .prog-card:hover,.prog-card:focus-visible{transform:translateY(-4px);box-shadow:var(--shadow);border-color:transparent;outline:none;}
+  .prog-top{display:flex;justify-content:space-between;align-items:flex-start;}
+  .prog-num{font-family:var(--display);font-size:15px;color:var(--coral-dark);font-variant-numeric:tabular-nums;}
+  .prog-icon{width:42px;height:42px;border-radius:12px;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;flex:none;}
+  .prog-icon svg{width:22px;height:22px;}
+  .prog-card h3{font-size:19px;}
+  .prog-card p{font-size:13.8px;}
+  .prog-more{display:none;font-size:13.5px;padding-top:6px;border-top:1px dashed var(--line);}
+  .prog-card[aria-expanded="true"] .prog-more{display:block;}
+  .prog-card[aria-expanded="true"]{border-color:var(--coral);}
+  .prog-link{font:600 13px/1 var(--body);color:var(--coral-dark);display:inline-flex;align-items:center;gap:6px;margin-top:auto;}
+  .prog-card:hover .prog-link{text-decoration:underline;}
+
+  .director{background:var(--navy-deep);color:#fff;}
+  .director .wrap{display:grid;grid-template-columns:.85fr 1.15fr;gap:56px;align-items:center;}
+  @media (max-width:880px){.director .wrap{grid-template-columns:1fr;}}
+  .director-photo{
+    aspect-ratio:4/5;border-radius:20px;background:linear-gradient(160deg,var(--navy-soft),var(--navy-deep));
+    display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.12);
+  }
+  .director-photo .initials{font-family:var(--display);font-size:96px;color:rgba(255,255,255,.9);}
+  .director-photo::before{content:"";position:absolute;inset:auto -20% -30% auto;width:70%;aspect-ratio:1;background:radial-gradient(circle,var(--coral),transparent 70%);opacity:.35;}
+  .director blockquote{margin:0;font-family:var(--display);font-weight:600;font-size:clamp(20px,2.4vw,27px);line-height:1.35;color:#fff;}
+  .director blockquote::before{content:"\201C";color:var(--coral);}
+  .director .signee{margin-top:26px;display:flex;gap:14px;align-items:center;}
+  .signee b{display:block;font-size:15.5px;color:#fff;}
+  .signee span{font-size:13px;color:#9aa3d1;}
+
+  .partners{background:var(--paper-raised);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding-block:40px;}
+  .partners .wrap{display:flex;align-items:center;gap:28px;flex-wrap:wrap;}
+  .partners .label{font:700 12px/1.4 var(--body);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);max-width:14ch;}
+  .partner-list{display:flex;gap:14px;flex-wrap:wrap;flex:1;}
+  .partner-chip{border:1px solid var(--line);border-radius:999px;padding:10px 18px;font:600 13.5px/1 var(--body);color:var(--ink-soft);background:var(--paper);}
+
+  .news-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+  @media (max-width:920px){.news-grid{grid-template-columns:1fr;}}
+  .news-card{background:var(--paper-raised);border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;transition:transform .18s ease, box-shadow .18s ease;}
+  .news-card:hover{transform:translateY(-4px);box-shadow:var(--shadow);}
+  .news-cover{height:8px;background:linear-gradient(90deg,var(--coral),var(--navy-soft));}
+  .news-body{padding:24px;display:flex;flex-direction:column;gap:10px;}
+  .news-date{font:700 11px/1 var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--coral-dark);}
+  .news-body h3{font-size:18px;}
+  .news-body p{font-size:14px;}
+  .news-body a{font:600 13px/1 var(--body);color:var(--navy);display:inline-flex;gap:6px;align-items:center;margin-top:6px;}
+  :root[data-theme="dark"] .news-body a{color:#fff;}
+  @media (prefers-color-scheme:dark){.news-body a{color:#fff;}}
+
+  .contact{background:var(--navy);color:#fff;}
+  .contact .wrap{display:grid;grid-template-columns:.95fr 1.05fr;gap:56px;}
+  @media (max-width:920px){.contact .wrap{grid-template-columns:1fr;}}
+  .contact h2{color:#fff;}
+  .contact-info{display:flex;flex-direction:column;gap:22px;margin-top:28px;}
+  .contact-row{display:flex;gap:14px;}
+  .contact-row .ic{width:38px;height:38px;border-radius:10px;background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;flex:none;}
+  .contact-row .ic svg{width:18px;height:18px;}
+  .contact-row b{display:block;font-size:14.5px;color:#fff;}
+  .contact-row span, .contact-row a{font-size:13.8px;color:#c9cff0;text-decoration:none;}
+  .contact-row a:hover{color:#fff;text-decoration:underline;}
+
+  .form-card{background:var(--paper-raised);border-radius:18px;padding:30px;color:var(--ink);box-shadow:var(--shadow);}
+  .field{display:flex;flex-direction:column;gap:6px;margin-bottom:16px;}
+  .field label{font:600 12.5px/1 var(--body);color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;}
+  .field input, .field select, .field textarea{
+    font:500 14.5px/1.4 var(--body);padding:12px 14px;border-radius:10px;border:1.5px solid var(--line);
+    background:var(--paper);color:var(--ink);resize:vertical;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus{outline:2px solid var(--coral);outline-offset:1px;border-color:var(--coral);}
+  .field.err input, .field.err select, .field.err textarea{border-color:#e0483a;}
+  .field .msg{font-size:12px;color:#e0483a;min-height:14px;}
+  .form-foot{display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+  .toast{display:none;align-items:center;gap:10px;background:#effaf3;border:1px solid #bfe6cc;color:#1c7a3d;font:600 13.5px/1.3 var(--body);padding:12px 16px;border-radius:10px;margin-top:14px;}
+  :root[data-theme="dark"] .toast{background:#0f2417;border-color:#1e4d2c;color:#7fe3a1;}
+  @media (prefers-color-scheme:dark){.toast{background:#0f2417;border-color:#1e4d2c;color:#7fe3a1;}}
+  .toast.show{display:flex;}
+
+  footer{background:var(--navy-deep);color:#9aa3d1;padding-block:52px 30px;}
+  footer .wrap{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:40px;}
+  @media (max-width:760px){footer .wrap{grid-template-columns:1fr;gap:30px;}}
+  footer .brand-name{color:#fff;}
+  footer p{color:#9aa3d1;font-size:13.8px;max-width:34ch;margin-top:14px;}
+  footer h4{font:700 12.5px/1 var(--body);letter-spacing:.08em;text-transform:uppercase;color:#fff;margin-bottom:16px;}
+  footer ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:11px;}
+  footer a{text-decoration:none;font-size:13.8px;color:#9aa3d1;}
+  footer a:hover{color:#fff;}
+  .foot-bottom{margin-top:44px;padding-top:22px;border-top:1px solid rgba(255,255,255,.1);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:12.5px;color:#7a83ad;}
+
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease, transform .6s ease;}
+  .reveal.in{opacity:1;transform:none;}
+  @media (prefers-reduced-motion: reduce){
+    .reveal{opacity:1;transform:none;transition:none;}
+    *{scroll-behavior:auto !important;}
+  }
+</style>
+</head>
+<body>
+
+<svg style="display:none" aria-hidden="true">
+  <symbol id="ic-build" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21h18M5 21V9l7-5 7 5v12M9 21v-6h6v6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="ic-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20V10M12 20V4M20 20v-7" stroke-linecap="round"/></symbol>
+  <symbol id="ic-code" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 8l-5 4 5 4M16 8l5 4-5 4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="ic-bolt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z" stroke-linejoin="round"/></symbol>
+  <symbol id="ic-chip" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="7" y="7" width="10" height="10" rx="1.4"/><path d="M9 3v3M15 3v3M9 18v3M15 18v3M3 9h3M3 15h3M18 9h3M18 15h3" stroke-linecap="round"/></symbol>
+  <symbol id="ic-brief" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" stroke-linecap="round"/></symbol>
+  <symbol id="ic-gear" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.5v3M12 18.5v3M21.5 12h-3M5.5 12h-3M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1M18.4 18.4l-2.1-2.1M7.7 7.7 5.6 5.6" stroke-linecap="round"/></symbol>
+  <symbol id="ic-car" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 16V11l2-5h12l2 5v5" stroke-linejoin="round"/><circle cx="7.5" cy="16.5" r="1.6"/><circle cx="16.5" cy="16.5" r="1.6"/></symbol>
+  <symbol id="ic-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s7-7.2 7-12a7 7 0 1 0-14 0c0 4.8 7 12 7 12Z"/><circle cx="12" cy="9" r="2.4"/></symbol>
+  <symbol id="ic-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2C9.6 21 3 14.4 3 6a2 2 0 0 1 2-2Z" stroke-linejoin="round"/></symbol>
+  <symbol id="ic-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6 8.5 7 8.5-7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+
+<div class="topbar">
+  <div class="wrap">
+    <a href="#">🎓 Seguimiento de Egresados</a>
+    <a href="#">📚 Biblioteca Digital</a>
+    <a href="#">✉️ Correo Institucional</a>
+    <a href="#">📄 Libro de Reclamaciones</a>
+  </div>
+</div>
+
+<header class="site" id="siteHeader">
+  <div class="wrap">
+    <a class="brand" href="#inicio">
+      <svg class="brand-mark" viewBox="0 0 48 48" fill="none">
+        <circle cx="24" cy="24" r="22" fill="#0c1a4a"/>
+        <circle cx="24" cy="24" r="22" fill="url(#g1)" fill-opacity=".5"/>
+        <path d="M24 12v4M24 32v4M36 24h-4M16 24h-4M32.5 15.5l-2.8 2.8M18.3 29.7l-2.8 2.8M32.5 32.5l-2.8-2.8M18.3 18.3l-2.8-2.8" stroke="#ff6b45" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="24" cy="24" r="7.5" fill="none" stroke="#fff" stroke-width="2.2"/>
+        <text x="24" y="27.5" text-anchor="middle" font-family="Big Shoulders Display, sans-serif" font-size="10" font-weight="700" fill="#fff">GB</text>
+        <defs><linearGradient id="g1" x1="0" y1="0" x2="48" y2="48"><stop stop-color="#ff6b45"/><stop offset="1" stop-color="#0c1a4a" stop-opacity="0"/></linearGradient></defs>
+      </svg>
+      <span class="brand-name">IESTP Gilda Ballivián<small>Instituto de educación superior tecnológico</small></span>
+    </a>
+
+    <nav class="primary" id="primaryNav">
+      <a href="#inicio" class="active">Inicio</a>
+      <a href="#nosotros">Nosotros</a>
+      <a href="#programas">Programas</a>
+      <a href="#noticias">Noticias</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+
+    <div class="header-actions">
+      <a href="#contacto" class="btn btn-outline">Admisión 2026</a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú" aria-expanded="false"><span></span></button>
+    </div>
+  </div>
+</header>
+
+<section class="hero" id="inicio">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">Rumbo al licenciamiento</span>
+      <h1>Formación técnica que <em>construye</em> futuro real.</h1>
+      <p class="lede">Institución de Educación Superior Tecnológica en San Juan de Miraflores, Lima. Ocho carreras técnicas orientadas a la industria, la construcción y la tecnología — con docentes especializados y convenios que abren camino a la universidad.</p>
+      <div class="cta-row">
+        <a href="#programas" class="btn btn-primary">Ver programas de estudio</a>
+        <a href="#contacto" class="btn btn-ghost">Solicitar información →</a>
+      </div>
+      <div class="hero-badge-row">
+        <div class="hero-badge"><b>8</b><span>Programas técnicos</span></div>
+        <div class="hero-badge"><b>1200<span class="plus">+</span></b><span>Estudiantes 2025</span></div>
+        <div class="hero-badge"><b>5000<span class="plus">+</span></b><span>Egresados</span></div>
+      </div>
+    </div>
+
+    <div class="hero-panel reveal">
+      <span class="tag">Palabras del Director</span>
+      <h3>“Haced del estudio un hábito.”</h3>
+      <p>“Frente a obstáculos, busca la forma de vencerlos utilizando la inteligencia y el criterio. Capacítate permanentemente y serás orgullo de tu profesión.”</p>
+      <div class="quote-name">
+        <div class="avatar-ring">LS</div>
+        <div>
+          <b>Dr. Ledgar Sovero Sovero</b>
+          <span>Director General</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="stats">
+  <div class="wrap">
+    <div class="stat"><b data-count="2003" data-suffix="">0</b><span>Fundado en</span></div>
+    <div class="stat"><b data-count="1200" data-suffix="+">0</b><span>Matriculados 2025</span></div>
+    <div class="stat"><b data-count="45" data-suffix="+">0</b><span>Docentes</span></div>
+    <div class="stat"><b data-count="300" data-suffix="+">0</b><span>Titulados 2025</span></div>
+    <div class="stat"><b data-count="5000" data-suffix="+">0</b><span>Egresados</span></div>
+  </div>
+</section>
+
+<section class="programs" id="programas">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div>
+        <span class="eyebrow">Oferta académica</span>
+        <h2>Ocho carreras, una sola meta: empleabilidad real.</h2>
+      </div>
+      <p>Toca una carrera para ver el detalle. Formación aplicada, laboratorios especializados y salida al mundo laboral desde el primer ciclo.</p>
+    </div>
+
+    <div class="prog-grid" id="progGrid"></div>
+  </div>
+</section>
+
+<section class="director">
+  <div class="wrap">
+    <div class="director-photo reveal"><span class="initials">LS</span></div>
+    <div class="reveal">
+      <span class="eyebrow" style="color:#ffb59e">Mensaje institucional</span>
+      <blockquote style="margin-top:16px">Querido estudiante balliviano: muchos son los llamados, pero pocos los escogidos; y uno de ellos has sido tú. Que sea el respeto y la responsabilidad la piedra angular que guía tu vida.</blockquote>
+      <div class="signee">
+        <div class="avatar-ring">LS</div>
+        <div><b>Dr. Ledgar Sovero Sovero</b><span>Director General — IESTP Gilda Ballivián</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="partners">
+  <div class="wrap">
+    <span class="label">Convenios de transitabilidad y experiencias formativas</span>
+    <div class="partner-list">
+      <span class="partner-chip">Universidad Privada San Juan Bautista</span>
+      <span class="partner-chip">CETPRO Divina Providencia</span>
+      <span class="partner-chip">Colegio Fe y Alegría</span>
+      <span class="partner-chip">Colegio Juana Alarco de Dammert</span>
+    </div>
+  </div>
+</div>
+
+<section id="noticias">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div>
+        <span class="eyebrow">Actualidad</span>
+        <h2>Noticias y eventos</h2>
+      </div>
+      <p>Lo último de la vida institucional balliviana.</p>
+    </div>
+    <div class="news-grid">
+      <article class="news-card reveal">
+        <div class="news-cover"></div>
+        <div class="news-body">
+          <span class="news-date">Octubre 2025</span>
+          <h3>Convenio con la Universidad San Juan Bautista</h3>
+          <p>Firmamos una alianza estratégica que favorecerá a cientos de estudiantes y docentes con nuevas rutas de continuidad universitaria.</p>
+          <a href="#">Leer más →</a>
+        </div>
+      </article>
+      <article class="news-card reveal">
+        <div class="news-cover"></div>
+        <div class="news-body">
+          <span class="news-date">Septiembre 2025</span>
+          <h3>Implementación del punto geodésico</h3>
+          <p>Avanzamos con la implementación del punto geodésico institucional, clave para las prácticas de Construcción Civil.</p>
+          <a href="#">Leer más →</a>
+        </div>
+      </article>
+      <article class="news-card reveal">
+        <div class="news-cover"></div>
+        <div class="news-body">
+          <span class="news-date">Agosto 2025</span>
+          <h3>Pronta inauguración: Laboratorio de Fabricación Digital</h3>
+          <p>Un nuevo laboratorio beneficiará a más de mil estudiantes de los distintos programas de estudio.</p>
+          <a href="#">Leer más →</a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contacto">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow" style="color:#ffb59e">Hablemos</span>
+      <h2>Inicia tu matrícula 2026</h2>
+      <p style="color:#c9cff0;margin-top:12px;max-width:40ch">Escríbenos y un asesor de admisión te contactará con la información de tu carrera de interés.</p>
+
+      <div class="contact-info">
+        <div class="contact-row">
+          <span class="ic"><svg><use href="#ic-pin"/></svg></span>
+          <div><b>Dirección</b><span>Av. Vargas Machuca N° 315 (frente al BCP)<br>San Juan de Miraflores — Lima, Perú</span></div>
+        </div>
+        <div class="contact-row">
+          <span class="ic"><svg><use href="#ic-phone"/></svg></span>
+          <div><b>Teléfonos</b><span>Mesa de Partes: 287-1526 · Informes: 992-038-334</span></div>
+        </div>
+        <div class="contact-row">
+          <span class="ic"><svg><use href="#ic-mail"/></svg></span>
+          <div><b>Correos</b><span><a href="mailto:mesadepartes@iestpgildaballivian.edu.pe">mesadepartes@iestpgildaballivian.edu.pe</a><br><a href="mailto:soporte@iestpgildaballivian.edu.pe">soporte@iestpgildaballivian.edu.pe</a></span></div>
+        </div>
+      </div>
+    </div>
+
+    <form class="form-card" id="contactForm" novalidate>
+      <div class="field" id="f-name">
+        <label for="name">Nombre completo</label>
+        <input id="name" name="name" type="text" placeholder="Tu nombre y apellido" autocomplete="name">
+        <span class="msg"></span>
+      </div>
+      <div class="field" id="f-email">
+        <label for="email">Correo electrónico</label>
+        <input id="email" name="email" type="email" placeholder="tucorreo@ejemplo.com" autocomplete="email">
+        <span class="msg"></span>
+      </div>
+      <div class="field" id="f-program">
+        <label for="program">Carrera de interés</label>
+        <select id="program" name="program">
+          <option value="">Selecciona una carrera</option>
+          <option>Construcción Civil</option>
+          <option>Contabilidad</option>
+          <option>Desarrollo de Sistemas de Información</option>
+          <option>Electricidad Industrial</option>
+          <option>Electrónica Industrial</option>
+          <option>Gestión Administrativa</option>
+          <option>Mecánica de Producción Industrial</option>
+          <option>Mecatrónica Automotriz</option>
+        </select>
+        <span class="msg"></span>
+      </div>
+      <div class="field" id="f-message">
+        <label for="message">Mensaje (opcional)</label>
+        <textarea id="message" name="message" rows="3" placeholder="Cuéntanos en qué podemos ayudarte"></textarea>
+        <span class="msg"></span>
+      </div>
+      <div class="form-foot">
+        <button type="submit" class="btn btn-primary">Enviar solicitud</button>
+      </div>
+      <div class="toast" id="formToast">✅ ¡Gracias! Tu solicitud fue enviada. Te contactaremos pronto.</div>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <span class="brand-name" style="font-family:var(--display);font-size:19px;">IESTP Gilda Ballivián</span>
+      <p>Instituto de Educación Superior Tecnológico Privado. Por una educación técnica de calidad en San Juan de Miraflores, Lima.</p>
+    </div>
+    <div>
+      <h4>Institución</h4>
+      <ul>
+        <li><a href="#nosotros">Nosotros</a></li>
+        <li><a href="#programas">Programas de estudio</a></li>
+        <li><a href="#">Transparencia</a></li>
+        <li><a href="#">Trámites</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Contacto</h4>
+      <ul>
+        <li><a href="tel:+51012871526">(01) 287-1526</a></li>
+        <li><a href="tel:+51992038334">992-038-334</a></li>
+        <li><a href="mailto:soporte@iestpgildaballivian.edu.pe">soporte@iestpgildaballivian.edu.pe</a></li>
+        <li><a href="#">Facebook ↗</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap foot-bottom">
+    <span>© <span id="year"></span> IESTP Gilda Liliana Ballivián Rosado — Todos los derechos reservados.</span>
+    <span>Demo de rediseño — no es el sitio oficial.</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var header = document.getElementById('siteHeader');
+  var nav = document.getElementById('primaryNav');
+  var toggle = document.getElementById('menuToggle');
+
+  window.addEventListener('scroll', function(){
+    header.classList.toggle('scrolled', window.scrollY > 8);
+  }, {passive:true});
+
+  toggle.addEventListener('click', function(){
+    var open = nav.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open);
+  });
+  nav.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){
+      nav.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+      nav.querySelectorAll('a').forEach(function(x){x.classList.remove('active');});
+      a.classList.add('active');
+    });
+  });
+
+  var programs = [
+    {icon:'ic-build', title:'Construcción Civil', text:'Forma profesionales técnicos en planificación, ejecución y control de obras civiles.', more:'Incluye prácticas de topografía, metrados y supervisión de obra en campo real.'},
+    {icon:'ic-chart', title:'Contabilidad', text:'Capacita en análisis financiero, gestión contable y tributaria.', more:'Manejo de software contable, tributación empresarial y estados financieros.'},
+    {icon:'ic-code', title:'Desarrollo de Sistemas de Información', text:'Especialistas en diseño, programación y mantenimiento de software empresarial.', more:'Bases de datos, desarrollo web y fundamentos de arquitectura de software.'},
+    {icon:'ic-bolt', title:'Electricidad Industrial', text:'Prepara técnicos para el mantenimiento e instalación de sistemas eléctricos industriales.', more:'Instalaciones de media tensión, tableros de control y normas de seguridad eléctrica.'},
+    {icon:'ic-chip', title:'Electrónica Industrial', text:'Desarrolla habilidades en control electrónico, automatización y mantenimiento de equipos.', more:'PLC, sensores industriales y sistemas de control automatizado.'},
+    {icon:'ic-brief', title:'Gestión Administrativa', text:'Profesionales competentes en administración moderna y gestión de recursos empresariales.', more:'Gestión de talento humano, logística y procesos administrativos digitales.'},
+    {icon:'ic-gear', title:'Mecánica de Producción Industrial', text:'Forma técnicos en diseño, mantenimiento y fabricación de maquinaria industrial.', more:'Manufactura, control de calidad y mantenimiento de máquinas y herramientas.'},
+    {icon:'ic-car', title:'Mecatrónica Automotriz', text:'Integra la mecánica, electrónica y control para sistemas automotrices avanzados.', more:'Diagnóstico electrónico vehicular, inyección electrónica y sistemas híbridos.'}
+  ];
+
+  var grid = document.getElementById('progGrid');
+  grid.innerHTML = programs.map(function(p, i){
+    var n = String(i+1).padStart(2,'0');
+    return '' +
+      '<button class="prog-card reveal" aria-expanded="false" type="button">' +
+        '<div class="prog-top"><span class="prog-num">'+n+'</span><span class="prog-icon"><svg><use href="#'+p.icon+'"/></svg></span></div>' +
+        '<h3>'+p.title+'</h3>' +
+        '<p>'+p.text+'</p>' +
+        '<p class="prog-more">'+p.more+'</p>' +
+        '<span class="prog-link">Más información →</span>' +
+      '</button>';
+  }).join('');
+
+  grid.querySelectorAll('.prog-card').forEach(function(card){
+    card.addEventListener('click', function(){
+      var isOpen = card.getAttribute('aria-expanded') === 'true';
+      grid.querySelectorAll('.prog-card').forEach(function(c){ c.setAttribute('aria-expanded','false'); });
+      card.setAttribute('aria-expanded', String(!isOpen));
+    });
+  });
+
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var revealTargets = document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window && !reduceMotion){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, {threshold:.15});
+    revealTargets.forEach(function(el){ io.observe(el); });
+  } else {
+    revealTargets.forEach(function(el){ el.classList.add('in'); });
+  }
+
+  var counted = false;
+  var statBlock = document.querySelector('.stats');
+  function animateCount(el){
+    var target = parseInt(el.getAttribute('data-count'), 10);
+    var suffix = el.getAttribute('data-suffix') || '';
+    var start = 0;
+    var dur = reduceMotion ? 0 : 1200;
+    var t0 = performance.now();
+    function frame(t){
+      var p = dur ? Math.min(1, (t - t0) / dur) : 1;
+      var val = Math.floor(start + (target - start) * (1 - Math.pow(1 - p, 3)));
+      el.textContent = val.toLocaleString('es-PE') + suffix;
+      if(p < 1) requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  }
+  if(statBlock && 'IntersectionObserver' in window){
+    var sio = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting && !counted){
+          counted = true;
+          statBlock.querySelectorAll('[data-count]').forEach(animateCount);
+          sio.disconnect();
+        }
+      });
+    }, {threshold:.4});
+    sio.observe(statBlock);
+  }
+
+  var form = document.getElementById('contactForm');
+  var toast = document.getElementById('formToast');
+  function setError(fieldId, message){
+    var field = document.getElementById(fieldId);
+    field.classList.toggle('err', !!message);
+    field.querySelector('.msg').textContent = message || '';
+  }
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    toast.classList.remove('show');
+    var name = document.getElementById('name').value.trim();
+    var email = document.getElementById('email').value.trim();
+    var program = document.getElementById('program').value;
+    var ok = true;
+
+    if(name.length < 3){ setError('f-name','Ingresa tu nombre completo.'); ok = false; } else setError('f-name');
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ setError('f-email','Ingresa un correo válido.'); ok = false; } else setError('f-email');
+    if(!program){ setError('f-program','Selecciona una carrera.'); ok = false; } else setError('f-program');
+
+    if(ok){
+      toast.classList.add('show');
+      form.reset();
+    }
+  });
+
+  document.getElementById('year').textContent = new Date().getFullYear();
+})();
+</script>
+</body>
+</html>
